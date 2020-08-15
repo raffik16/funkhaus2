@@ -3,12 +3,15 @@
   <div class="main-parent">
 
     <header class="header-wrap">
+      <!-- Import hero header -->
       <hero-header />
     </header>
     
+    <!-- Import hero images + titles -->
     <hero />
 
     <footer class="footer-wrap">
+      <!-- Import hero footer -->
       <hero-footer />
     </footer>
   </div>
@@ -16,13 +19,13 @@
 
 <script>
 export default {
+  // Fetch API data
   async fetch() {
     this.db = await fetch(
         "https://raw.githubusercontent.com/funkhaus/technical-assessment-round-2/master/db.json"
         // Format result as json
         ).then((res) => res.json())
   },
-
   head() {
     return {
       title: this.db.siteMeta.title, // Grab title from API

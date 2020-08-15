@@ -26,12 +26,12 @@
 
             <!-- Hero title Render -->
             <div class="hero-header">
-                {{currentTitle}}
+                {{slideshowsubTitles}}
             </div>
 
             <!-- Hero Subtitle Render -->
             <div class="hero-sub-header">
-                Sia — The Greatest
+              <span v-html="currentTitle"></span>
             </div>
 
             <!-- Hero Play button Render -->
@@ -74,6 +74,10 @@ export default {
         // Update local array
         this.images.push(...slideshowImages)
 
+        const slideshowsubTitles = this.database.pages.map(page => `${page.featuredImage.title}`);
+        // Update local array
+        this.subTitles.push(...slideshowsubTitles)
+
         // Map Api Titles
         const slideshowTitle = this.database.pages.map(page => `${page.title}`);
         // Update local array
@@ -97,6 +101,7 @@ export default {
       database : [], // Set top level array
       images: [], // Set images array to be updated with api.
       titles: [], // Set titles array to be updated with api.
+      subTitles: [], // Set subTitles array to be updated with api.
       currentNumber: 0, // Default currentNumber = 0
       timer: 0, // Default timer = 0
       hoverOver: false, // Default hoverOver = false
@@ -112,6 +117,11 @@ export default {
     // Return currentNumber to match up with currentTitle.
     currentTitle: function() {
       return this.titles[Math.abs(this.currentNumber) % this.titles.length];
+    },
+
+    // Return currentNumber to match up with slideshowsubTitles.
+    slideshowsubTitles: function() {
+      return this.subTitles[Math.abs(this.currentNumber) % this.subTitles.length];
     },
   },
 }
@@ -162,7 +172,15 @@ export default {
 
 .slide-leave-to .hero-title-wrap {
   transition: top 3s cubic-bezier(0.76, 0, 0.5, 1);
-  top: 100%;
+  top: 150%;
+}
+
+/* Attempting to slideIn title sequence */
+.slide-enter-to .hero-title-wrap {
+  /* transition: top 3s cubic-bezier(0.76, 0, 0.5, 1); */
+  /* transition-timing-function: 0s; */
+  /* top: -550px; */
+  /* animation: dropIn 1.75s linear forwards; */
 }
 
 .hero-center .play {
@@ -186,10 +204,10 @@ export default {
     position: fixed;
     text-align: center;
     color: #fff;
-    top: 350px;
+    /* top: 350px; */
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: top 3s cubic-bezier(0.76, 0, 0.5, 1);
+    /* transition: top 3s cubic-bezier(0.76, 0, 0.5, 1); */
     z-index: 10;
     min-width: 75%;
 }
@@ -208,6 +226,7 @@ export default {
   transition: top .25s ease-in-out 0s;
   top: 0;
   position: relative;
+  text-transform: capitalize;
 }
 
 .is-hovering .hero-header {
@@ -221,6 +240,7 @@ export default {
   top: 0;
   position: relative;
   padding: 22px 0 22px;
+  text-transform: capitalize;
 }
 
 .is-hovering .hero-sub-header {
@@ -239,6 +259,15 @@ img {
   }
   100% {
     width: 100%;
+  }
+}
+
+@keyframes dropIn {
+  0% {
+    top: -50%
+  }
+  100% {
+    top: 450px
   }
 }
 
