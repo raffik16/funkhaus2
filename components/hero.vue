@@ -1,36 +1,48 @@
 <template>
 <div>
 
+  <!-- Hero Timer Indicator -->
   <div class="timebar">
     <div class="inner-bar"></div>
   </div>
 
-  <div class="hero-text-wrap" :class="{'is-hovering' : hoverOver }">
+  <!-- Hero main parent has a hovering class. -->
+  <div class="hero-center" :class="{'is-hovering' : hoverOver }">
+
+    <!-- Use Native transtion-group -->
       <transition-group class="slider" name="slide" tag="div">
         
+        <!-- Loop through and assign slides a unique key. -->
         <div
           v-for="number in [currentNumber]"
           :key="number"
           class="slider-parent">
 
+          <!-- Hero Title wrap with hover state -->
           <div class="hero-title-wrap"
               @mouseenter="hoverOver = true"
-              @mouseleave="hoverOver = false">
+              @mouseleave="hoverOver = false"
+              @click="hoverOver = true">
 
+            <!-- Hero title Render -->
             <div class="hero-header">
                 {{currentTitle}}
             </div>
 
+            <!-- Hero Subtitle Render -->
             <div class="hero-sub-header">
                 Sia — The Greatest
             </div>
 
+            <!-- Hero Play button Render -->
             <div class="play">
               <span>&#x25B6;</span> Play
             </div>
           </div>
 
+          <!-- Image Render -->
           <img :src="currentImage" />
+
       </div>
     </transition-group>
 
@@ -40,67 +52,73 @@
 
 <script>
 export default {
+  name: "hero",
+  // Fetch API data
   async fetch() {
-      this.database = await fetch(
-          "https://raw.githubusercontent.com/funkhaus/technical-assessment-round-2/master/db.json"
-          // Format result as json
-          ).then((res) => res.json())
+    this.database = await fetch(
+        "https://raw.githubusercontent.com/funkhaus/technical-assessment-round-2/master/db.json"
+        // Format result as json
+        ).then((res) => res.json())
+  },
+
+  // startRotation and dataMap on mount().
+  mounted: function () {
+    this.startRotation();
+    this.mapData();
+  },
+
+  methods: {
+    mapData: function() {
+        // Map API images
+        const slideshowImages = this.database.pages.map(page => `https:${page.featuredImage.sourceUrl}`);
+        // Update local array
+        this.images.push(...slideshowImages)
+
+        // Map Api Titles
+        const slideshowTitle = this.database.pages.map(page => `${page.title}`);
+        // Update local array
+        this.titles.push(...slideshowTitle)
+
     },
+
+    // Rotation interval set to 7 seconds.
+    startRotation: function() {
+        this.timer = setInterval(this.next, 7000);
+    },
+
+    // Update currentNumber by 1
+    next: function() {
+        this.currentNumber += 1
+    }
+  },
+
+  data: () => {
+    return {
+      database : [], // Set top level array
+      images: [], // Set images array to be updated with api.
+      titles: [], // Set titles array to be updated with api.
+      currentNumber: 0, // Default currentNumber = 0
+      timer: 0, // Default timer = 0
+      hoverOver: false, // Default hoverOver = false
+    }
+  },
   
-    mounted: function () {
-      this.startRotation();
-      this.mapData();
+  computed: {
+    // Return currentNumber to match up with currentImage.
+    currentImage: function() {
+      return this.images[Math.abs(this.currentNumber) % this.images.length];
     },
 
-    methods: {
-      mapData: function() {
-          const slideshowImages = this.database.pages.map(page => `https:${page.featuredImage.sourceUrl}`);
-           this.images.push(...slideshowImages)
-          console.log(slideshowImages);
-
-          const slideshowTitle = this.database.pages.map(page => `${page.title}`);
-          this.titles.push(...slideshowTitle)
-          console.log(slideshowTitle);
-      },
-
-      startRotation: function() {
-          this.timer = setInterval(this.next, 7000);
-      },
-
-      stopRotation: function() {
-          clearTimeout(this.timer);
-          this.timer = null;
-      },
-
-      next: function() {
-          this.currentNumber += 1
-      }
+    // Return currentNumber to match up with currentTitle.
+    currentTitle: function() {
+      return this.titles[Math.abs(this.currentNumber) % this.titles.length];
     },
-
-     data: () => {
-     return {
-      database : [],
-      images: [],
-      titles: [],
-      currentNumber: 0,
-      timer: null,
-      hoverOver: false, 
-     }
-    },
-    
-    computed: {
-    	currentImage: function() {
-        return this.images[Math.abs(this.currentNumber) % this.images.length];
-      },
-      currentTitle: function() {
-        return this.titles[Math.abs(this.currentNumber) % this.titles.length];
-      },
-
-    },
+  },
 }
 </script>
 
 <style scoped>
+/* Default Hero Styles */
 .timebar {
   height: 6px;
   width: 100%;
@@ -147,7 +165,7 @@ export default {
   top: 100%;
 }
 
-.hero-text-wrap .play {
+.hero-center .play {
   opacity: 0;
   transition: opacity .25s ease-in-out 0s;
   font-family: 'lotasemibold';
@@ -155,7 +173,7 @@ export default {
   font-size: 18px;
 }
 
-.hero-text-wrap.is-hovering .play {
+.hero-center.is-hovering .play {
   opacity: 1;
   transition: opacity .25s ease-in-out 0s;
 }
@@ -173,6 +191,7 @@ export default {
     transform: translate(-50%, -50%);
     transition: top 3s cubic-bezier(0.76, 0, 0.5, 1);
     z-index: 10;
+    min-width: 75%;
 }
 
 .slider-parent {
@@ -201,6 +220,7 @@ export default {
   transition: top .25s ease 0s;
   top: 0;
   position: relative;
+  padding: 22px 0 22px;
 }
 
 .is-hovering .hero-sub-header {

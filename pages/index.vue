@@ -1,9 +1,11 @@
 <template>
+  <!-- Main Parent Index Div -->
   <div class="main-parent">
+
     <header class="header-wrap">
       <hero-header />
     </header>
-
+    
     <hero />
 
     <footer class="footer-wrap">
@@ -11,6 +13,40 @@
     </footer>
   </div>
 </template>
+
+<script>
+export default {
+  async fetch() {
+    this.db = await fetch(
+        "https://raw.githubusercontent.com/funkhaus/technical-assessment-round-2/master/db.json"
+        // Format result as json
+        ).then((res) => res.json())
+  },
+
+  head() {
+    return {
+      title: this.db.siteMeta.title, // Grab title from API
+      meta: [
+        {
+          hid: 'description', //  Must use hid
+          name: 'description', // Type of meta property
+          content: this.db.siteMeta.description // Insert description from API
+        },
+        {
+          hid: 'og-image', //  Must use hid
+          property: 'og-image',  // Type of meta property
+          content: this.db.siteMeta.thumbnail // Insert description from API
+        }
+      ]
+    }
+  },
+  data: () => {
+    return {
+      db : [], // Set top level array
+    }
+  },
+}
+</script>
 
 <style scoped>
 .header-wrap {
