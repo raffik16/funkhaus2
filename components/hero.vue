@@ -10,7 +10,8 @@
         
         <div
           v-for="number in [currentNumber]"
-          :key="number">
+          :key="number"
+          class="slider-parent">
 
           <div class="hero-title-wrap"
               @mouseenter="hoverOver = true"
@@ -18,11 +19,6 @@
 
             <div class="hero-header">
                 {{currentTitle}}
-                <!-- Lorin Askill -->
-                  <!-- <div v-for="(image, pages) in database.pages" :key="pages.id"> -->
-                    <!-- {{ image.title }} -->
-                  <!-- </div> -->
-      
             </div>
 
             <div class="hero-sub-header">
@@ -37,18 +33,12 @@
           <img :src="currentImage" />
       </div>
     </transition-group>
-    <!-- <div v-for="(image, pages) in database.pages" :key="pages">
-          <img class="the-image" :src="image.featuredImage.sourceUrl" alt="Editor Images in our database" />
-        {{ image.title }}
-      </div> -->
-      
+
   </div>
 </div>
 </template>
 
 <script>
-// import database from 'assets/db.json'
-
 export default {
   async fetch() {
       this.database = await fetch(
@@ -137,7 +127,6 @@ export default {
   position: relative;
   transition: transform 3s cubic-bezier(0.76, 0, 0.5, 1);
   transform: translate3d(0, -100%, 0);
-  /* will-change: scroll-position; */
   z-index: 30;
   backface-visibility: hidden;
   will-change: transform;
@@ -148,26 +137,15 @@ export default {
   position: relative;
   transition: transform 3s cubic-bezier(0.76, 0, 0.5, 1);
   transform: translate3d(0, -100%, 0);
-  /* will-change: scroll-position; */
   z-index: 10;
   backface-visibility: hidden;
   will-change: transform;
 }
 
 .slide-leave-to .hero-title-wrap {
-  
   transition: top 3s cubic-bezier(0.76, 0, 0.5, 1);
   top: 100%;
- 
-  /* display: none; */
-  /* backface-visibility: hidden; */
 }
-
-.slide-enter-to .hero-title-wrap {
-  /* display: none; */
-  /* backface-visibility: hidden; */
-}
-
 
 .hero-text-wrap .play {
   opacity: 0;
@@ -185,30 +163,23 @@ export default {
 .play span {
   margin-right: 10px;
 }
-/* 
-.hero-text-wrap .hero-title-wrap:first-of-type {
-  background: red;
-}
-
-.hero-text-wrap .hero-title-wrap:first-of-type {
-  background: blue;
-} */
 
 .hero-title-wrap {
     position: fixed;
     text-align: center;
-    /* z-index: 10; */
     color: #fff;
-    top: 450px;
+    top: 350px;
     left: 50%;
-    /* animation: fadeOutIn 5s linear 3s infinite; */
     transform: translate(-50%, -50%);
-    /* will-change: scroll-position; */
     transition: top 3s cubic-bezier(0.76, 0, 0.5, 1);
-    /* backface-visibility: hidden; */
-    /* will-change: transform; */
-    /* perspective: 1000 */
+    z-index: 10;
+}
 
+.slider-parent {
+  position: relative;
+  backface-visibility: hidden;
+  will-change: transform;
+  perspective: 1000;
 }
 
 .hero-header {
@@ -251,17 +222,12 @@ img {
   }
 }
 
-@keyframes fadeOutIn {
-  0%, 90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
 /* Media Quires for main background image. */
 @media(min-width:768px) {
+  .hero-title-wrap {
+    top: 450px;
+  }
+
    .hero-header {
       font-size: 72px;
       line-height: 69px;
