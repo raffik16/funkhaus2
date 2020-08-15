@@ -204,7 +204,7 @@ export default {
     position: fixed;
     text-align: center;
     color: #fff;
-    /* top: 350px; */
+    top: 350px;
     left: 50%;
     transform: translate(-50%, -50%);
     /* transition: top 3s cubic-bezier(0.76, 0, 0.5, 1); */
