@@ -1,9 +1,13 @@
 <template>
-    <div class="footer-liner">
-        <span>
+    <div class="footer-liner" :class="{'ig-hovering' : hoverOverIg, 'contact-hovering' : hoverOverContact }">
+        <span @click="hoverOverIg = true"
+              @mouseenter="hoverOverIg = true"
+              @mouseleave="hoverOverIg = false">
             Instagram
         </span>
-        <span>
+        <span @click="HoverOverContact = true"
+              @mouseenter="hoverOverContact = true"
+              @mouseleave="hoverOverContact = false">
             Contact
         </span>
     </div>
@@ -11,7 +15,13 @@
 
 <script>
 export default {
-    name: "hero-footer"
+    name: "hero-footer",
+    data: () => {
+    return {
+      hoverOverIg: false, // Default hoverOverIg = false
+      hoverOverContact: false
+    }
+  },
 }
 </script>
 
@@ -31,9 +41,15 @@ span {
     position: relative;
 }
 
-
 span:hover::after,
 span:hover::before {
+    background-color: #fff;
+    transition: all 1s ease 0s;
+    width: 100%;
+}
+
+.ig-hovering span::after,
+.contact-hovering span::after {
     background-color: #fff;
     transition: all 1s ease 0s;
     width: 100%;
@@ -48,14 +64,4 @@ span::after {
     position: absolute;
     transition: all 1s ease 0s;
 }
-
-@keyframes dropIn {
-  0% {
-    top: -50%
-  }
-  100% {
-    top: 450px
-  }
-}
-
 </style>
