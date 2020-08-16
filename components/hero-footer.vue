@@ -1,11 +1,13 @@
 <template>
     <div class="footer-liner" :class="{'ig-hovering' : hoverOverIg, 'contact-hovering' : hoverOverContact }">
-        <span @click="hoverOverIg = true"
+        <span class="ig-span"
+              @click="hoverOverIg = true"
               @mouseenter="hoverOverIg = true"
               @mouseleave="hoverOverIg = false">
             Instagram
         </span>
-        <span @click="HoverOverContact = true"
+        <span class="contact-span"
+              @click="hoverOverContact = true"
               @mouseenter="hoverOverContact = true"
               @mouseleave="hoverOverContact = false">
             Contact
@@ -41,15 +43,15 @@ span {
     position: relative;
 }
 
-span:hover::after,
+/* span:hover::after,
 span:hover::before {
     background-color: #fff;
     transition: all 1s ease 0s;
     width: 100%;
-}
+} */
 
-.ig-hovering span::after,
-.contact-hovering span::after {
+.ig-hovering .ig-span::after,
+.contact-hovering .contact-span::after {
     background-color: #fff;
     transition: all 1s ease 0s;
     width: 100%;
