@@ -1,12 +1,16 @@
 <template>
+  <!-- Header Liner -->
   <div class="header-liner">
+    <!-- Logo Wrap -->
     <div class="logo-wrap">
+      <!-- The Logo Image -->
       <img alt="Skull" src="~/static/images/skull.png" class="logo">
       <span class="exile">
         Exile
       </span>
     </div>
 
+    <!-- Toggle classe based on hover -->
     <div class="menu" :class="{'is-hovering-finishing' : finishingHoverOver, 'is-hovering-editors' : editorsHoverOver }">
       <span class="editors-item"
             @mouseenter="editorsHoverOver = true"
@@ -89,8 +93,8 @@ export default {
 }
 
 span.editors-item {
-      margin-right: 15px;
-  }
+  margin-right: 15px;
+}
 
 
 @media(min-width:768px) {
@@ -105,7 +109,7 @@ span.editors-item {
     top: auto;
     transition: all .3s ease-in-out 0s;
   }
-  
+
   span.editors-item {
       margin-right: 150px;
   }

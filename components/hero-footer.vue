@@ -1,4 +1,5 @@
 <template>
+    <!-- Toggle class based on mouseenter/mouseleave/click -->
     <div class="footer-liner" :class="{'ig-hovering' : hoverOverIg, 'contact-hovering' : hoverOverContact }">
         <span class="ig-span"
               @click="hoverOverIg = true"
@@ -42,13 +43,6 @@ span {
     font-size: 14px;
     position: relative;
 }
-
-/* span:hover::after,
-span:hover::before {
-    background-color: #fff;
-    transition: all 1s ease 0s;
-    width: 100%;
-} */
 
 .ig-hovering .ig-span::after,
 .contact-hovering .contact-span::after {
