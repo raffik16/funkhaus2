@@ -69,20 +69,13 @@ export default {
 
   methods: {
     mapData: function() {
-        // Map API images
-        const slideshowImages = this.database.pages.map(page => `https:${page.featuredImage.sourceUrl}`);
-        // Update local array
-        this.images.push(...slideshowImages)
-
-        const slideshowsubTitles = this.database.pages.map(page => `${page.featuredImage.title}`);
-        // Update local array
-        this.subTitles.push(...slideshowsubTitles)
-
-        // Map Api Titles
-        const slideshowTitle = this.database.pages.map(page => `${page.title}`);
-        // Update local array
-        this.titles.push(...slideshowTitle)
-
+        // Map API database in forEAch() in one call
+        this.database.pages.forEach(({ featuredImage, title }) => {
+          // Update local array
+          this.images.push(`https:${featuredImage.sourceUrl}`);
+          this.subTitles.push(featuredImage.title);
+          this.titles.push(title);
+        });
     },
 
     // Rotation interval set to 7 seconds.
