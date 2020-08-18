@@ -173,6 +173,7 @@ export default {
 .slide-leave-to .hero-title-wrap {
   transition: top 3s cubic-bezier(0.76, 0, 0.5, 1);
   top: 150%;
+  /* z-index: 0; */
 }
 
 /* Attempting to slideIn title sequence */
@@ -180,7 +181,11 @@ export default {
   /* transition: top 3s cubic-bezier(0.76, 0, 0.5, 1); */
   /* transition-timing-function: 0s; */
   /* top: -550px; */
-  /* animation: dropIn 1.75s linear forwards; */
+  /* animation: dropIn 1.5s linear forwards; */
+  /* animation-delay: 1s; */
+  /* transform: translate(-50%, -30%); */
+  z-index: 40;
+
 }
 
 .hero-center .play {
@@ -201,7 +206,7 @@ export default {
 }
 
 .hero-title-wrap {
-    position: fixed;
+    position: absolute;
     text-align: center;
     color: #fff;
     top: 350px;
@@ -265,10 +270,10 @@ img {
 
 @keyframes dropIn {
   0% {
-    top: -50%
+    transform: translate(-50%, -600px);
   }
   100% {
-    top: 450px
+    transform: translate(-50%, -50%);
   }
 }
 
