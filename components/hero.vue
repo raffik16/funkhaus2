@@ -147,7 +147,6 @@ export default {
     overflow: hidden;
     background: #000;
     position: relative;
-    z-index: 10;
 }
 
 .slide-leave-to {
@@ -155,7 +154,6 @@ export default {
   position: relative;
   transition: transform 3s cubic-bezier(0.76, 0, 0.5, 1);
   transform: translate3d(0, -100%, 0);
-  z-index: 30;
   backface-visibility: hidden;
   will-change: transform;
 }
@@ -165,7 +163,6 @@ export default {
   position: relative;
   transition: transform 3s cubic-bezier(0.76, 0, 0.5, 1);
   transform: translate3d(0, -100%, 0);
-  z-index: 10;
   backface-visibility: hidden;
   will-change: transform;
 }
@@ -208,7 +205,6 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     /* transition: top 3s cubic-bezier(0.76, 0, 0.5, 1); */
-    z-index: 10;
     min-width: 75%;
 }
 
@@ -217,6 +213,7 @@ export default {
   backface-visibility: hidden;
   will-change: transform;
   perspective: 1000;
+  height: 100vh;
 }
 
 .hero-header {
@@ -312,15 +309,6 @@ img {
   img {
      transform: scale(3.5);
      transform-origin: top;
-  }
-
-  .slide-enter-to {
-    height: 100vh; 
-    z-index: 20;
-  }
-  
-  .slide-leave-to {
-    height: 100vh;
   }
 }
 
